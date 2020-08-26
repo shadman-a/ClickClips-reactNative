@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 import Ionicons from '@expo/vector-icons/Ionicons'
 import HomeScreen from './Screens/HomeScreen'
 import SettingsScreen from './Screens/SettingsScreen'
@@ -8,14 +9,26 @@ import BarbersScreen from './Screens/BarberScreen'
 import AppointmentsScreen from './Screens/AppointmentScreen'
 
 
+
 const Tab = createBottomTabNavigator();
+
+const Stack = createStackNavigator();
+
+// function HomeStackScreen() {
+//   return (
+//     <HomeStack.Navigator>
+//       <HomeStack.Screen name="Home" component={HomeScreen} />
+//       {/* <HomeStack.Screen name="Details" component={} /> */}
+//     </HomeStack.Navigator>
+//   );
+// }
 
 export default function App() {
   return (
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
+          tabBarIcon: ({ color, size }) => {
             let iconName;
 
             if (route.name === 'Home') {
