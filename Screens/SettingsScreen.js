@@ -10,7 +10,7 @@ function SettingsScreen() {
        <Header
         placement="left"
         backgroundColor="tomato"
-        centerComponent={{ text: 'Settings', style: {fontSize: '25', fontFamily:'Helvetica',color: '#fff' } }}
+        centerComponent={{ text: 'Settings', style: {fontSize: 25, fontFamily:'Helvetica',color: '#fff' } }}
       />
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Text>Settings!</Text>

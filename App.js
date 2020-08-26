@@ -9,21 +9,25 @@ import BarbersScreen from './Screens/BarberScreen'
 import AppointmentsScreen from './Screens/AppointmentScreen'
 
 
-
 const Tab = createBottomTabNavigator();
 
-const Stack = createStackNavigator();
+export default class App extends React.Component {
 
-// function HomeStackScreen() {
-//   return (
-//     <HomeStack.Navigator>
-//       <HomeStack.Screen name="Home" component={HomeScreen} />
-//       {/* <HomeStack.Screen name="Details" component={} /> */}
-//     </HomeStack.Navigator>
-//   );
-// }
+    state = {
+      barbers: []
+    }
+   
 
-export default function App() {
+  componentDidMount() {
+    fetch('http://localhost:3000/barbers')
+      .then((response) => response.json())
+      .then((json) => {
+        this.setState({ barbers: json });
+      })
+      
+  };
+
+render() {
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -48,11 +52,12 @@ export default function App() {
           inactiveTintColor: 'gray',
         }}
       >
-        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Home" children={()=><HomeScreen barbers={this.state.barbers}/>}/>
         <Tab.Screen name="Barbers" component={BarbersScreen} />
         <Tab.Screen name="Appointments" component={AppointmentsScreen} />
         <Tab.Screen name="Settings" component={SettingsScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );
+  }
 }

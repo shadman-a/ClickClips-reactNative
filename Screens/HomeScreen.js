@@ -1,30 +1,35 @@
 import * as React from 'react';
-import { Text, View, Button } from 'react-native';
-import { SearchBar, Header } from 'react-native-elements';
+import { Text, View, Button, Alert, ScrollView } from 'react-native';
+import { SearchBar, Header, Card  } from 'react-native-elements';
 import { NavigationContainer } from '@react-navigation/native';
-import ShopShow from '../Components/shopShow'
+import ShopShow from '../Components/ShopShow'
+
 
 export default class HomeScreen extends React.Component {
 
   state = {
-      search: '',
+    search: '',
   };
   
   updateSearch = (search) => {
     this.setState({ search });
   };
 
+  getCharacter = () => {
+    return this.props.barbers.map(barber => <ShopShow key={barber.id} barber={barber}/>)
+}
+
   render() {
     const { search } = this.state;
-
+    console.log(this.props.barbers)
     return (
       <>
       <Header
         placement="left"
         backgroundColor="tomato"
-        centerComponent={{ text: 'Home', style: {fontSize: '25', fontFamily:'Helvetica',color: '#fff' } }}
+        centerComponent={{ text: 'Home', style: {fontSize: 25, fontFamily:'Helvetica',color: '#fff' } }}
       />
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>  
+      <View >  
       <SearchBar
         style = "" 
         platform = "ios"
@@ -32,7 +37,9 @@ export default class HomeScreen extends React.Component {
         onChangeText={this.updateSearch}
         value={search}
       />
-      <Text>Home!</Text>
+    <ScrollView>
+      {this.getCharacter()}
+    </ScrollView>
       </View>
       </>
     );
