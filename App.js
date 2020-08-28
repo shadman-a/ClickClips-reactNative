@@ -24,7 +24,6 @@ export default class App extends React.Component {
       .then((json) => {
         this.setState({ barbers: json });
       })
-      
   };
 
 render() {
