@@ -1,41 +1,57 @@
 import * as React from 'react';
-import { Text, View, Button, Alert, ScrollView } from 'react-native';
+import { Text, View, Button, Alert, ScrollView, Icon  } from 'react-native';
 import { SearchBar, Header, Card  } from 'react-native-elements';
 import { NavigationContainer } from '@react-navigation/native';
-import ShopShow from '../Components/ShopShow'
+import { createStackNavigator } from '@react-navigation/stack';
+import BarberCard from '../Components/BarberCard'
 
 
-export default class HomeScreen extends React.Component {
+
+class HomeScreen extends React.Component {
+  
   state = {
     search: "",
-    barberArray: this.props.barbers,
+    barberArray: [],
+    filteredArray: []
   };
   
   updateSearch = (search) => {
     this.setState({ 
       search: search,
-      barberArray: this.filteredBarbers()
+      filteredArray: this.filteredBarbers()
     });
   };
 
-  getBarber = () => {
-    return this.state.barberArray.map(barber => <ShopShow key={barber.id} barber={barber}/>)
-  }
+  componentDidMount() {
+    fetch('http://localhost:3000/barbers')
+      .then((response) => response.json())
+      .then((json) => {
+        this.setState({ barberArray: json });
+      })
+  };
 
   filteredBarbers = () => {
-    return this.props.barbers.filter(barber => barber.name.toLowerCase().includes(this.state.search.toLowerCase()))
+    return this.state.barberArray.filter(barber => barber.name.toLowerCase().includes(this.state.search.toLowerCase()))
   }
 
   render() {
-    console.log(this.state)
     const { search } = this.state;
+    const Barber = this.state.filteredArray.map((barber => 
+    <Card>
+      <Text>{barber.name}</Text>
+      <Button
+      icon={<Icon name='add' type='material' color='#ffffff'/>}
+      buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
+      title='Book Now'
+      onPress={() =>  this.props.navigation.navigate('BarberCard', {
+        otherParam: barber
+      })
+    }
+      />
+    </Card>
+    ))
     return (
       <>
-      <Header
-        placement="left"
-        backgroundColor="tomato"
-        centerComponent={{ text: 'Home', style: {fontSize: 25, fontFamily:'Helvetica',color: '#fff' } }}
-      />
       <View>  
       <SearchBar  
         platform = "ios"
@@ -44,13 +60,16 @@ export default class HomeScreen extends React.Component {
         value={search}
       />
     <ScrollView>
-      {this.getBarber()}
+        {Barber}
     </ScrollView>
       </View>
+
       </>
     );
   }
 }
+
+export default HomeScreen;
 
 
 
