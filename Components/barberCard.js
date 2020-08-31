@@ -56,7 +56,6 @@ export default class BarberCard extends React.Component {
   };
 
   render() {
-    console.log(this.state);
     return (
       <>
         <Calendar

@@ -17,10 +17,7 @@ class AppointmentsScreen extends React.Component {
       })
   };
 
-  deleteAppointment = (id) => {
-    console.log("ids", id)
-    fetch(`http://localhost:3000/appointments/${id}`,{ method: "DELETE"}
-    )}
+
   
   
   render() {
@@ -31,25 +28,16 @@ class AppointmentsScreen extends React.Component {
         <Text>{appointment.time}</Text>
         <Button
         icon={<Icon name='add' type='material' color='#ffffff'/>}
-        title='Delete'
-        onPress={this.deleteAppointment(appointment.id)}
-      />
-      <Button
-        icon={<Icon name='add' type='material' color='#ffffff'/>}
-        title='Edit'
+        title='More Info'
+        onPress={() =>  this.props.navigation.navigate('AppointmentInfo', {
+          otherParam: appointment
+        })
+      }
       />
       </Card>
     ))
     return (
       <>
-        <Header
-          placement="left"
-          backgroundColor="tomato"
-          centerComponent={{
-            text: "Appointments",
-            style: { fontSize: 25, fontFamily: "Helvetica", color: "#fff" },
-          }}
-        />
         <View
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         >

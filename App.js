@@ -6,8 +6,7 @@ import HomeScreenNavigator from './Routes/HomeScreenNavigator'
 import SettingsScreen from './Screens/SettingsScreen'
 import BarbersScreen from './Screens/BarberScreen'
 import AppointmentsScreen from './Screens/AppointmentScreen'
-import BarberCard from './Components/BarberCard'
-import { createStackNavigator } from '@react-navigation/stack';
+import AppointmentScreenNavigator from './Routes/AppointmentScreenNavigator'
 
 
 const Tab = createBottomTabNavigator();
@@ -42,7 +41,7 @@ render() {
         }}>
         <Tab.Screen name="Home" component={HomeScreenNavigator}/>
         <Tab.Screen name="Barbers" component={BarbersScreen} />
-        <Tab.Screen name="Appointments" component={AppointmentsScreen} />
+        <Tab.Screen name="Appointments" component={AppointmentScreenNavigator} />
         <Tab.Screen name="Settings" component={SettingsScreen} />
       </Tab.Navigator>
     </NavigationContainer>

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Text, View, Button, Alert, ScrollView, Icon  } from 'react-native';
 import { SearchBar, Header, Card  } from 'react-native-elements';
+import MyCarousel from '../Components/MyCarousel';
 
 
 class HomeScreen extends React.Component {
@@ -55,11 +56,12 @@ class HomeScreen extends React.Component {
         onChangeText={this.updateSearch}
         value={search}
       />
+      
     <ScrollView>
+    <MyCarousel/>
         {Barber}
     </ScrollView>
       </View>
-
       </>
     );
   }
