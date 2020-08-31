@@ -15,18 +15,8 @@ const Tab = createBottomTabNavigator();
 export default class App extends React.Component {
 
 render() {
-  console.log(this.props)
   return (
     <>
-    {/* <NavigationContainer 
-    independent={true}
-    initialRouteName='Home'
-    >
-    <Stack.Navigator>
-    <Stack.Screen name="Home" component={HomeScreen} />
-    <Stack.Screen name="Make an Appointment" component={BarberCard} />
-    </Stack.Navigator>
-    </NavigationContainer> */}
     <NavigationContainer>
       <Tab.Navigator
         initialRouteName='Home'

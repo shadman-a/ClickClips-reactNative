@@ -5,7 +5,6 @@ import { Header } from 'react-native-elements';
 
 
 function SettingsScreen() {
-    console.log(this.props)
     return (
       <>
        <Header

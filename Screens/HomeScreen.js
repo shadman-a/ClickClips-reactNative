@@ -1,10 +1,6 @@
 import * as React from 'react';
 import { Text, View, Button, Alert, ScrollView, Icon  } from 'react-native';
 import { SearchBar, Header, Card  } from 'react-native-elements';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import BarberCard from '../Components/BarberCard'
-
 
 
 class HomeScreen extends React.Component {
