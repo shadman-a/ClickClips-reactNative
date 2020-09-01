@@ -9,8 +9,6 @@ export default class BarberCard extends React.Component {
     time: null,
 	};
 	
-
-
   timePicker = () => {
     if (this.state.date !== null) {
       return (
