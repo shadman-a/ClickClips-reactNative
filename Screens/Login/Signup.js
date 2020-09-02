@@ -14,32 +14,27 @@ import {
   updatePassword,
   updateName,
   signup,
+  postuser
 } from "../../redux/actions/user";
+  import { Header } from 'react-native-elements';
+
 
 class Signup extends React.Component {
   handleSignUp = () => {
-    this.postUser();
+    this.props.postuser();
     this.props.signup();
     this.props.navigation.navigate("TabNavigator");
   };
 
-  postUser = () => {
-    fetch("http://localhost:3000/users", {
-      method: "POST",
-      headers: {
-        accepts: "application/json",
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        name: this.props.user.name,
-        username: this.props.user.email,
-      }),
-  })
-}
-
   render() {
-    console.log(this.props.user.name)
+    console.log("hello",this.props)
     return (
+      <>
+      <Header
+      placement="left"
+      leftComponent={{ icon: 'arrow-back', color: '#fff' }}
+      backgroundColor="tomato"
+    />
       <View style={styles.container}>
         <TextInput
           style={styles.inputBox}
@@ -65,6 +60,7 @@ class Signup extends React.Component {
           <Text style={styles.buttonText}>Signup</Text>
         </TouchableOpacity>
       </View>
+      </>
     );
   }
 }
@@ -107,7 +103,7 @@ const styles = StyleSheet.create({
 });
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ updateEmail, updatePassword,updateName, signup }, dispatch);
+  return bindActionCreators({ updateEmail, updatePassword, updateName, signup, postuser }, dispatch);
 };
 
 const mapStateToProps = (state) => {

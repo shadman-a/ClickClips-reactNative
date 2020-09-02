@@ -5,6 +5,7 @@ import {
   UPDATE_EMAIL,
   UPDATE_PASSWORD,
   UPDATE_NAME,
+  POSTUSER
 } from "../actions/user";
 
 const user = (state = {}, action) => {
@@ -19,13 +20,15 @@ const user = (state = {}, action) => {
       return { ...state, password: action.payload };
     case UPDATE_NAME:
       return { ...state, name: action.payload };
+    case POSTUSER:
+      return {...state, postuser: action.payload};
     default:
       return state;
   }
 };
 
 const rootReducer = combineReducers({
-  user,
+  user
 });
 
 export default rootReducer;

@@ -15,8 +15,7 @@ class AppointmentsScreen extends React.Component {
       });
   }
 
-  render() {
-    console.log(this.state);
+  render() {  
     const Appointment = this.state.appointmentsArray.map((appointment) => (
       <Card>
         <Text>{appointment.date}</Text>

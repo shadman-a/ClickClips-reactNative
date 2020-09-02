@@ -25,7 +25,6 @@ class BarbersScreen extends React.Component {
   // locateCurrentPosition = () => {
   //     Geolocation.getCurrentPosition(
   //         position => {
-  //             console.log(JSON.stringify(position))
   //         }
   //     )
   // }

@@ -2,8 +2,10 @@ import * as React from "react";
 import { Text, View, Button, Alert } from "react-native";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { connect } from "react-redux";
 
-export default class BarberCard extends React.Component {
+
+class BarberCard extends React.Component {
   state = {
     date: null,
     time: null,
@@ -24,7 +26,6 @@ export default class BarberCard extends React.Component {
   };
 
   time = (e, date) => {
-		console.log(e, date)
 		let newTime = new Date(date).toLocaleTimeString();
     this.setState({
       time: newTime   
@@ -54,6 +55,7 @@ export default class BarberCard extends React.Component {
   };
 
   render() {
+    console.log(this.props)
     return (
       <>
         <Calendar
@@ -78,3 +80,13 @@ export default class BarberCard extends React.Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+    postuser: state.postuser
+  };
+};
+
+
+
+export default connect(mapStateToProps)(BarberCard);

@@ -3,7 +3,6 @@ import { Text, View, Image } from 'react-native';
 import { Header } from 'react-native-elements';
 
 
-
 function SettingsScreen() {
     return (
       <>

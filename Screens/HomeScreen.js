@@ -4,11 +4,20 @@ import { SearchBar, Header, Card } from "react-native-elements";
 import MyCarousel from "../Components/MyCarousel";
 
 class HomeScreen extends React.Component {
-  state = {
-    search: "",
+  // state = {
+  //   search: "",
+  //   barberArray: [],
+  //   filteredArray: [],
+  // };
+  constructor(props) {
+    super(props);
+    this.state = { 
+      search: "",
     barberArray: [],
-    filteredArray: [],
-  };
+    filteredArray: []
+   };
+    this.fetchBarbers();
+  }
 
   updateSearch = (search) => {
     this.setState({
@@ -17,12 +26,14 @@ class HomeScreen extends React.Component {
     });
   };
 
-  componentDidMount() {
+  fetchBarbers() {
     fetch("http://localhost:3000/barbers")
       .then((response) => response.json())
       .then((json) => {
-        this.setState({ barberArray: json });
-      });
+        this.setState({ 
+          barberArray: json,
+          filteredArray: json});
+      })
   }
 
   filteredBarbers = () => {
@@ -30,6 +41,7 @@ class HomeScreen extends React.Component {
       barber.name.toLowerCase().includes(this.state.search.toLowerCase())
     );
   };
+  
 
   render() {
     const { search } = this.state;
