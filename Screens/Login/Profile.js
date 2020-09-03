@@ -3,12 +3,22 @@ import { View, Text, StyleSheet, Button } from "react-native";
 
 import { connect } from "react-redux";
 import Firebase from "../../config/Firebase";
+import { bindActionCreators } from "redux";
+import * as barberActions from "../../redux/actions/barbers";
+
+const actions = {
+  ...barberActions,
+};
 
 class Profile extends React.Component {
   handleSignout = () => {
     Firebase.auth().signOut();
     this.props.navigation.navigate("Login");
   };
+
+  componentDidMount() {
+    this.props.actions.fetchBarbers();
+  } 
 
   render() {
     console.log(this.props)
@@ -63,10 +73,16 @@ const styles = StyleSheet.create({
   },
 });
 
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(actions, dispatch),
+});     
+
 const mapStateToProps = (state) => {
   return {
     user: state.user,
+    barbers: state.barbers,
   };
 };
 
-export default connect(mapStateToProps)(Profile);
+export default connect(mapStateToProps, mapDispatchToProps,
+  )(Profile);

@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   Text,
 } from "react-native";
-import Firebase from "../../config/Firebase";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import {

@@ -13,12 +13,12 @@ const LoginNavigator = createSwitchNavigator(
         Signup: {
             screen: Signup
         },
+        TabNavigator: {
+            screen: TabNavigator
+        },
         Profile: {
             screen: Profile
-        },
-        TabNavigator: {
-          screen: TabNavigator
-      }
+        }
     },
     {
         initialRouteName: 'Login'
