@@ -12,15 +12,13 @@ import {
   updateEmail,
   updatePassword,
   updateName,
-  signup,
-  postuser
+  signup
 } from "../../redux/actions/user";
   import { Header } from 'react-native-elements';
 
 
 class Signup extends React.Component {
   handleSignUp = () => {
-    this.props.postuser();
     this.props.signup();
     this.props.navigation.navigate("TabNavigator");
   };
@@ -102,7 +100,7 @@ const styles = StyleSheet.create({
 });
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ updateEmail, updatePassword, updateName, signup, postuser }, dispatch);
+  return bindActionCreators({ updateEmail, updatePassword, updateName, signup }, dispatch);
 };
 
 const mapStateToProps = (state) => {

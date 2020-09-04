@@ -4,11 +4,6 @@ import { SearchBar, Header, Card } from "react-native-elements";
 import MyCarousel from "../Components/MyCarousel";
 
 class HomeScreen extends React.Component {
-  // state = {
-  //   search: "",
-  //   barberArray: [],
-  //   filteredArray: [],
-  // };
   constructor(props) {
     super(props);
     this.state = { 
@@ -46,10 +41,11 @@ class HomeScreen extends React.Component {
   render() {
     const { search } = this.state;
     const Barber = this.state.filteredArray.map((barber) => (
-      <Card>
+      <Card
+      key={barber.id}
+      >
         <Text>{barber.name}</Text>
         <Button
-          icon={<Icon name="add" type="material" color="#ffffff" />}
           buttonStyle={{
             borderRadius: 0,
             marginLeft: 0,

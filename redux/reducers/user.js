@@ -6,6 +6,7 @@ import {
   UPDATE_NAME,
 } from "../actionTypes/user";
 
+
 export default user = (state = {}, action) => {
   switch (action.type) {
     case LOGIN:
