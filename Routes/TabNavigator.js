@@ -3,9 +3,12 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import HomeScreenNavigator from "./HomeScreenNavigator";
-import Profile from "../Screens/Login/Profile";
 import BarbersScreen from "../Screens/BarberScreen";
 import AppointmentScreenNavigator from "./AppointmentScreenNavigator";
+import LogoutNavigator from "./LogoutNavigator";
+import LoginNavigator from "./LoginNavigator";
+import BarberNavigator from "./BarberNavigator";
+import Profile from '../Screens/Login/Profile'
 
 const Tab = createBottomTabNavigator();
 
@@ -25,7 +28,7 @@ export default class TabNavigator extends React.Component {
                 iconName = "ios-map";
               } else if (route.name === "Appointments") {
                 iconName = "ios-calendar";
-              } else if (route.name === "Profile") {
+              } else if (route.name === "Settings") {
                 iconName = "ios-cog";
               }
               return <Ionicons name={iconName} size={size} color={color} />;
@@ -37,12 +40,9 @@ export default class TabNavigator extends React.Component {
           }}
         >
           <Tab.Screen name="Home" component={HomeScreenNavigator} />
-          <Tab.Screen name="Barbers" component={BarbersScreen} />
-          <Tab.Screen
-            name="Appointments"
-            component={AppointmentScreenNavigator}
-          />
-          <Tab.Screen name="Profile" component={Profile} />
+          <Tab.Screen name="Barbers" component={BarberNavigator} />
+          <Tab.Screen name="Appointments" component={AppointmentScreenNavigator} />
+          <Tab.Screen name="Settings" component={Profile} />
         </Tab.Navigator>
       </NavigationContainer>
     );

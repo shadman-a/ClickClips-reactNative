@@ -27,10 +27,6 @@ class Profile extends React.Component {
         <Text>Profile Screen</Text>
         <Text>{this.props.user.email}</Text>
         <Button title="Logout" onPress={this.handleSignout} />
-        <Button
-          title="Go Home"
-          onPress={() => this.props.navigation.navigate("TabNavigator")}
-        />
       </View>
     );
   }

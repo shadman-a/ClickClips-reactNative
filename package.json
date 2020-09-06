@@ -24,6 +24,7 @@
     "react": "~16.11.0",
     "react-dom": "~16.11.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.2.tar.gz",
+    "react-native-bootstrap-styles": "^0.4.5-0-j",
     "react-native-calendars": "^1.343.0",
     "react-native-dot-env": "0.0.1",
     "react-native-elements": "^2.3.1",

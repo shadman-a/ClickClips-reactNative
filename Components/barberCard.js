@@ -4,7 +4,6 @@ import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { connect } from "react-redux";
 
-
 class BarberCard extends React.Component {
   state = {
     date: null,
@@ -49,13 +48,12 @@ class BarberCard extends React.Component {
         date: this.state.date,
         time: this.state.time,
         barber_id: this.props.route.params.otherParam.id,
-        user_id: 1,
+        user_id: this.props.user.uid,
       }),
     }).then(() => this.props.navigation.navigate("ConfirmationScreen"));
   };
 
   render() {
-    console.log(this.props)
     return (
       <>
         <Calendar
@@ -68,7 +66,6 @@ class BarberCard extends React.Component {
         />
         {this.timePicker()}
         {this.submitButton()}
-
         <View
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         >
@@ -80,12 +77,11 @@ class BarberCard extends React.Component {
     );
   }
 }
+
 const mapStateToProps = (state) => {
   return {
     user: state.user,
   };
 };
-
-
 
 export default connect(mapStateToProps)(BarberCard);

@@ -14,12 +14,12 @@ class MyCarousel extends React.Component {
           activeIndex:0,
           carouselItems: [
           {
-              title:"Item 1",
-              text: "Text 1",
+              title:"50% off Haircut",
+              text: "For first time customers",
           },
           {
-              title:"Item 2",
-              text: "Text 2",
+              title:"Lorem ipsum",
+              text: "Now at Burt's",
           },
           {
               title:"Item 3",
@@ -46,7 +46,8 @@ class MyCarousel extends React.Component {
               padding: 50,
               marginLeft: 15,
               marginRight: 15,
-              marginTop: 10 }}>
+              marginTop: 10,
+              marginBottom: 20}}>
             <Text style={{fontSize: 30}}>{item.title}</Text>
             <Text>{item.text}</Text>
           </View>
@@ -56,7 +57,7 @@ class MyCarousel extends React.Component {
 
     render() {
         return (
-          <SafeAreaView style={{flex: 1, paddingTop: 50, }}>
+          <SafeAreaView style={{flex: 1, paddingTop: 50 }}>
             <View style={{ flex: 1, flexDirection:'row', justifyContent: 'center', }}>
                 <Carousel
                   layout={"default"}
