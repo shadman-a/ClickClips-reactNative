@@ -8,6 +8,7 @@ import {
   Animated,
   TouchableOpacity
 } from 'react-native'
+import { connect } from "react-redux";
 import Tag from '../Components/Tag'
 
 
@@ -25,31 +26,48 @@ class ServicesScreen extends React.Component {
     this.fetchServices();
   }
 
-  fetchBarbers() {
+  fetchServices() {
     fetch("http://localhost:3000/services")
       .then((response) => response.json())
       .then((json) => {
         this.setState({ 
-          barberArray: json
+          servicesArray: json
         });
       })
   }
 
+  postCart = (id) => {
+    fetch("http://localhost:3000/carts", {
+      method: "POST",
+      headers: {
+        accepts: "application/json",
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        service_id: id,
+        user_id: this.props.user.uid,
+      }),
+    }).then(() => this.props.navigation.navigate("BarberCard",
+    {otherParam: this.props.route.params.otherParam}));
+  };
+
   render() {
-    const Service = this.state.servicesArray.map((service) => (
-      <View style={styles.card}
-      key={service.id}
-      >
-        <TouchableOpacity activeOpacity={0.7}  onPress={() =>
-            this.props.navigation.navigate("BarberCard")
-          }>
-          <View style={styles.container}>
-            <Text style={styles.title}>{service.name}</Text>
-            <Text style={styles.description}>{service.description}</Text>
+    console.log(this.props)
+    const Service = this.state.servicesArray.map((service) => {
+      if(service.barber_id == this.props.route.params.otherParam.id)
+     { return(
+      <View style={styles.card}>
+      <TouchableOpacity activeOpacity={0.7} onPress={() => this.postCart(service.id)}>
+        <View style={styles.cardcontainer}>
+          <Text style={styles.cardtitle}>{service.name}</Text>
+          <Text style={styles.carddescription}>{service.description}</Text>
+          <View style={styles.cardtagContainer}>
+            <Tag>Price: ${service.price}.00</Tag>
           </View>
-        </TouchableOpacity>
-      </View>
-    ));
+        </View>
+      </TouchableOpacity>
+    </View>
+     )}})
 
     const headerContainerWidth = this.scrollY.interpolate({
       inputRange: [0, 125],
@@ -64,21 +82,32 @@ class ServicesScreen extends React.Component {
     })
 
     return (
+      <>
       <View style={styles.container}>
         <Animated.View style={[styles.imageContainer, { height: imageContainerHeight }]}>
-          <Image style={styles.image} source={{ uri: 'https://cdn.dribbble.com/users/1846841/screenshots/4961950/epi_x.png' }} />
+          <Image style={styles.image} source={{ uri: this.props.route.params.otherParam.image }} />
         </Animated.View>
         <ScrollView onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: this.scrollY } } }])}
           scrollEventThrottle={16}
           stickyHeaderIndices={[1]}
           style={styles.scrollViewContainer}
         >
+          <View style={styles.contentContainer}>
+  
           {Service}
+       
+      </View>
           <View style={styles.stickyHeaderContainer}>
-            <Animated.View style={[styles.headerContainer, { width: headerContainerWidth }]}></Animated.View>
+            <Animated.View style={[styles.headerContainer, { width: headerContainerWidth }]}>
+            <Text style={styles.headertitle} >{this.props.route.params.otherParam.name}</Text>
+            <Text style={styles.cardtitle}>{this.props.route.params.otherParam.address}</Text>
+            <Text style={styles.cardtitle}>{this.props.route.params.otherParam.phone}</Text>
+            </Animated.View>
           </View>
         </ScrollView>
       </View>
+    </>
+      
     )
   }
 }
@@ -125,7 +154,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   },
-  cardContainer: {
+  
+  
+  cardcontainer: {
     width: 320,
     backgroundColor: '#fff',
     marginBottom: 10,
@@ -135,30 +166,37 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
     shadowRadius: 5
   },
-  cardImage: {
+  cardimage: {
     height: 150
   },
-  tagContainer: {
+  cardtagContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap'
   },
-  title: {
+  cardtitle: {
     fontSize: 16,
     marginTop: 10
   },
-  description: {
+  carddescription: {
     color: '#999',
     marginTop: 5
-  },
-  iconContainer: {
-    position: 'absolute',
-    right: 20,
-    bottom: 15
   },
   card: {
     alignItems: "center",
     justifyContent: "center"
+  },
+  headertitle: {
+    alignItems: "center",
+    fontSize: 20,
+    marginTop: 10
   }
+
 })
   
-export default ServicesScreen
+const mapStateToProps = (state) => {
+  return {
+    user: state.user
+  };
+};
+
+export default connect(mapStateToProps)(ServicesScreen);

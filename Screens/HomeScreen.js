@@ -40,20 +40,20 @@ class HomeScreen extends React.Component {
   render() {
     const { search } = this.state;
     const Barber = this.state.filteredArray.map((barber) => (
-      <View style={styles.card}
-      key={barber.id}
-      >
+      <View style={styles.card} key={barber.id}>
         <TouchableOpacity activeOpacity={0.7}  onPress={() =>
             this.props.navigation.navigate("ServicesScreen", {
-              otherParam: barber,
+              otherParam: barber
             })
           }>
           <View style={styles.container}>
             <View>
-              <Image style={styles.image} source={{ uri: 'https://cdn.dribbble.com/users/1846841/screenshots/4961950/epi_x.png' }} />
+              <Image style={styles.image} source={{ uri: barber.image }} />
             </View>
             <Text style={styles.title}>{barber.name}</Text>
-            <Text style={styles.description}>$$ . Saludable</Text>
+            <Text style={styles.description}>{barber.description}</Text>
+            <Text style={styles.description}>$$</Text>
+
           </View>
         </TouchableOpacity>
       </View>

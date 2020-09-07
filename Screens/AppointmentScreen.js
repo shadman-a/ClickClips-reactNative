@@ -29,8 +29,6 @@ class AppointmentsScreen extends React.Component {
     console.log(user)
   }
 
-
-
   render() {
     const Appointment = this.state.appointmentsArray.map((appointment) => 
     {

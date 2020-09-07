@@ -3,6 +3,10 @@ import { Text, View, Button, Alert } from "react-native";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { connect } from "react-redux";
+import { WebView } from 'react-native-webview';
+
+
+
 
 class BarberCard extends React.Component {
   state = {
@@ -33,7 +37,9 @@ class BarberCard extends React.Component {
 
   submitButton = () => {
     if (this.state.time !== null) {
-      return <Button title="Book Now" onPress={this.postAppointment}></Button>;
+      return (
+      <Button title="Book Now" onPress={this.postAppointment}></Button>
+     );
     }
   };
 
@@ -56,6 +62,13 @@ class BarberCard extends React.Component {
   render() {
     return (
       <>
+       <View
+          style={{  justifyContent: "center", alignItems: "center" }}
+        >
+          <Text>{this.props.route.params.otherParam.name}</Text>
+          <Text>{this.state.date}</Text>
+          <Text>{this.state.time}</Text>
+        </View>
         <Calendar
           minDate={Date()}
           onDayPress={(day) => {
@@ -64,15 +77,10 @@ class BarberCard extends React.Component {
             });
           }}
         />
+        
         {this.timePicker()}
         {this.submitButton()}
-        <View
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-        >
-          <Text>{this.props.route.params.otherParam.name}</Text>
-          <Text>{this.state.date}</Text>
-          <Text>{this.state.time}</Text>
-        </View>
+       
       </>
     );
   }

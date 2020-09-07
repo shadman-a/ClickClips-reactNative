@@ -53,7 +53,7 @@ class BarbersScreen extends React.Component {
         >
           <Callout
           onPress={() =>
-            this.props.navigation.navigate("BarberCard", {
+            this.props.navigation.navigate("ServicesScreen", {
               otherParam: barber,
             })
           }>
