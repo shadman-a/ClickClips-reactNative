@@ -14,10 +14,12 @@ class AppointmentInfo extends React.Component {
 			return(
 				<>
 					<Text>
-						{this.props.route.params.otherParam.date}
+						Date: {this.props.route.params.otherParam.date}
+						Time: {this.props.route.params.otherParam.time}
 					</Text>
 					<Button      
 					title='Delete'
+					color = 'red'
 					onPress={this.deleteAppointment}
 					/>
 					</>

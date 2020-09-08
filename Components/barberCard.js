@@ -1,39 +1,18 @@
 import * as React from "react";
-import { Text, View, Button, Alert } from "react-native";
+import { Text, View, Button, Alert, ScrollView } from "react-native";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { connect } from "react-redux";
-import { WebView } from 'react-native-webview';
-
-
+import { material } from 'react-native-typography';
+import { List } from 'react-native-paper';
 
 
 class BarberCard extends React.Component {
   state = {
     date: null,
     time: null,
+    Expanded: false
 	};
-	
-  timePicker = () => {
-    if (this.state.date !== null) {
-      return (
-        <DateTimePicker
-					value= { new Date() }
-					mode="time"
-          is24Hour="false"
-          display="default"
-          onChange={this.time}
-        />
-      );
-    }
-  };
-
-  time = (e, date) => {
-		let newTime = new Date(date).toLocaleTimeString();
-    this.setState({
-      time: newTime   
-    });
-  };
 
   submitButton = () => {
     if (this.state.time !== null) {
@@ -42,6 +21,16 @@ class BarberCard extends React.Component {
      );
     }
   };
+
+  handlePress = () => this.setState({
+    Expanded: true
+  })
+  
+  setTime = (time)=> {
+    this.setState({
+      time: time
+    })
+  }
 
   postAppointment = () => {
     fetch("http://localhost:3000/appointments", {
@@ -63,13 +52,26 @@ class BarberCard extends React.Component {
     return (
       <>
        <View
-          style={{  justifyContent: "center", alignItems: "center" }}
+          style={{ justifyContent: "center", alignItems: "center" }}
         >
-          <Text>{this.props.route.params.otherParam.name}</Text>
-          <Text>{this.state.date}</Text>
-          <Text>{this.state.time}</Text>
+          <Text style={material.headline}>{this.props.route.params.otherParam.name}</Text>
+          <Text style={material.caption}>{this.state.date}</Text>
+          <Text style={material.caption}>{this.state.time}</Text>
         </View>
+        <ScrollView>
         <Calendar
+           theme={{
+            selectedDayBackgroundColor: '#00adf5',
+            selectedDayTextColor: '#ffffff',
+            todayTextColor: 'tomato',
+            dayTextColor: '#2d4150',
+            textDisabledColor: '#d9e1e8',
+            dotColor: '#00adf5',
+            selectedDotColor: '#ffffff',
+            arrowColor: 'tomato',
+            disabledArrowColor: '#d9e1e8',
+            indicatorColor: 'tomato',
+          }}
           minDate={Date()}
           onDayPress={(day) => {
             this.setState({
@@ -78,9 +80,43 @@ class BarberCard extends React.Component {
           }}
         />
         
-        {this.timePicker()}
+        <>
+        <List.Section title="Available Times">
+      <List.Accordion
+        theme={{ colors: { primary: 'tomato' }}}
+        title="Morning"
+        left={props => <List.Icon {...props} icon="weather-sunny" />}>
+        <List.Item title="9:00 AM" onPress={()=>this.setTime('9:00 AM')}/>
+        <List.Item title="10:00 AM" onPress={()=>this.setTime('10:00 AM')}/>
+        <List.Item title="11:00 AM" onPress={()=>this.setTime('11:00 AM')}/>
+      </List.Accordion>
+      <List.Accordion
+        theme={{ colors: { primary: 'tomato' }}}
+        title="Afternoon"
+        left={props => <List.Icon {...props} icon="weather-hazy" />}
+        expanded={this.state.expanded}
+        onPress={this.handlePress}>
+        <List.Item title="12:00 PM" onPress={()=>this.setTime('12:00 PM')}/>
+        <List.Item title="1:00 PM" onPress={()=>this.setTime('1:00 PM')}/>
+        <List.Item title="2:00 PM" onPress={()=>this.setTime('2:00 PM')}/>
+        <List.Item title="3:00 PM" onPress={()=>this.setTime('3:00 PM')}/>
+        <List.Item title="4:00 PM" onPress={()=>this.setTime('4:00 PM')}/>
+      </List.Accordion>
+      <List.Accordion
+        theme={{ colors: { primary: 'tomato' }}}
+        title="Evening"
+        left={props => <List.Icon {...props} icon="weather-night" />}
+        expanded={this.state.expanded}
+        onPress={this.handlePress}>
+        <List.Item title="5:00 PM" onPress={()=>this.setTime('5:00 PM')}/>
+        <List.Item title="6:00 PM" onPress={()=>this.setTime('6:00 PM')}/>
+        <List.Item title="7:00 PM" onPress={()=>this.setTime('7:00 PM')}/>
+      </List.Accordion>
+    </List.Section>
+        </>
+        </ScrollView>
         {this.submitButton()}
-       
+
       </>
     );
   }

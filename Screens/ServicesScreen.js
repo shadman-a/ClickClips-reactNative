@@ -10,6 +10,7 @@ import {
 } from 'react-native'
 import { connect } from "react-redux";
 import Tag from '../Components/Tag'
+import { iOSUIKit } from 'react-native-typography';
 
 
 class ServicesScreen extends React.Component {
@@ -52,7 +53,6 @@ class ServicesScreen extends React.Component {
   };
 
   render() {
-    console.log(this.props)
     const Service = this.state.servicesArray.map((service) => {
       if(service.barber_id == this.props.route.params.otherParam.id)
      { return(
@@ -99,9 +99,11 @@ class ServicesScreen extends React.Component {
       </View>
           <View style={styles.stickyHeaderContainer}>
             <Animated.View style={[styles.headerContainer, { width: headerContainerWidth }]}>
-            <Text style={styles.headertitle} >{this.props.route.params.otherParam.name}</Text>
-            <Text style={styles.cardtitle}>{this.props.route.params.otherParam.address}</Text>
-            <Text style={styles.cardtitle}>{this.props.route.params.otherParam.phone}</Text>
+            <View style={styles.cardheadercontainer}>
+            <Text style={styles.cardtitle} >{this.props.route.params.otherParam.name}</Text>
+            <Text style={styles.carddescription}>{this.props.route.params.otherParam.address}</Text>
+            <Text style={styles.carddescription}>{this.props.route.params.otherParam.phone}</Text>
+            </View>
             </Animated.View>
           </View>
         </ScrollView>
@@ -189,7 +191,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     fontSize: 20,
     marginTop: 10
-  }
+  },
+  cardheadercontainer: {
+    backgroundColor: '#fff',
+    marginBottom: 10,
+    padding: 40,
+    shadowColor: 'rgba(0,0,0,0.1)',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 1,
+    shadowRadius: 5
+  },
 
 })
   

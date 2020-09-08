@@ -2,6 +2,14 @@ import * as React from "react";
 import { Text, View, Image, ScrollView, Button, Icon } from "react-native";
 import { Header, Card } from "react-native-elements";
 import { connect } from "react-redux";
+import { Calendar, CalendarList, Agenda } from "react-native-calendars";
+import { bindActionCreators } from "redux";
+import * as barberActions from "../redux/actions/barbers";
+
+const actions = {
+  ...barberActions,
+};
+
 
 class AppointmentsScreen extends React.Component {
 
@@ -11,6 +19,7 @@ class AppointmentsScreen extends React.Component {
 
   componentDidMount = () => {
     this.props.navigation.addListener('focus', this.fetchAppointments)
+    this.props.actions.fetchBarbers();
   };
 
   fetchAppointments = () => {
@@ -22,26 +31,27 @@ class AppointmentsScreen extends React.Component {
   }
 
   filterArray=()=> {
-    console.log("filter", this.props.user.uid)
     let user = this.state.appointmentsArray.filter(function(user){
       return user.user_id == this.props.user.uid
     })
-    console.log(user)
   }
 
   render() {
     const Appointment = this.state.appointmentsArray.map((appointment) => 
     {
+      const barber = (this.props.barbers.data[appointment.barber_id - 1])
       if(appointment.user_id == this.props.user.uid)
      { return(
         <Card key={appointment.id}>
-          <Text>{appointment.date}</Text>
-          <Text>{appointment.time}</Text>
+          <Text>{barber.name}</Text>
+          <Text>Date: {appointment.date}</Text>
+          <Text>Time: {appointment.time}</Text>
           <Button
             title="More Info"
             onPress={() =>
               this.props.navigation.navigate("AppointmentInfo", {
                 otherParam: appointment,
+                barberParam: barber
               })
             }
           />
@@ -50,18 +60,22 @@ class AppointmentsScreen extends React.Component {
     })
     return (
       <>
-        <View>
           <ScrollView>{Appointment}</ScrollView>
-        </View>
       </>
     );
   }
 }
 
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(actions, dispatch),
+});     
+
 const mapStateToProps = (state) => {
   return {
     user: state.user,
+    barbers: state.barbers,
   };
 };
 
-export default connect(mapStateToProps)(AppointmentsScreen);
+export default connect(mapStateToProps, mapDispatchToProps,
+  )(AppointmentsScreen);
