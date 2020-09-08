@@ -2,9 +2,10 @@ import * as React from "react";
 import { Text, View, Image, ScrollView, Button, Icon } from "react-native";
 import { Header, Card } from "react-native-elements";
 import { connect } from "react-redux";
-import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 import { bindActionCreators } from "redux";
 import * as barberActions from "../redux/actions/barbers";
+import { iOSUIKit } from 'react-native-typography';
+
 
 const actions = {
   ...barberActions,
@@ -43,7 +44,7 @@ class AppointmentsScreen extends React.Component {
       if(appointment.user_id == this.props.user.uid)
      { return(
         <Card key={appointment.id}>
-          <Text>{barber.name}</Text>
+          <Text style={iOSUIKit.largeTitleEmphasized} >{barber.name}</Text>
           <Text>Date: {appointment.date}</Text>
           <Text>Time: {appointment.time}</Text>
           <Button

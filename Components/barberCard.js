@@ -7,6 +7,8 @@ import { material } from 'react-native-typography';
 import { List } from 'react-native-paper';
 
 
+
+
 class BarberCard extends React.Component {
   state = {
     date: null,

@@ -5,7 +5,6 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import HomeScreenNavigator from "./HomeScreenNavigator";
 import BarbersScreen from "../Screens/BarberScreen";
 import AppointmentScreenNavigator from "./AppointmentScreenNavigator";
-import LogoutNavigator from "./LogoutNavigator";
 import LoginNavigator from "./LoginNavigator";
 import BarberNavigator from "./BarberNavigator";
 import Profile from '../Screens/Login/Profile'

@@ -12,11 +12,21 @@ export default function HomeScreenNavigator() {
     const Stack = createStackNavigator();
 
     return (
-      <Stack.Navigator initialRouteName='HomeScreen'>
-        <Stack.Screen name='HomeScreen' component={HomeScreen} />
-        <Stack.Screen name='ServicesScreen' component={ServicesScreen} />
-        <Stack.Screen name='BarberCard' component={BarberCard} />
-        <Stack.Screen name='ConfirmationScreen' component={ConfirmationScreen} />
+      <Stack.Navigator initialRouteName='HomeScreen'
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: 'tomato',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        }
+      }}>
+        <Stack.Screen name='HomeScreen' component={HomeScreen} options={{ title: 'ClickClips' }}
+ />
+        <Stack.Screen name='ServicesScreen' component={ServicesScreen} options={{ title: 'Services' }}/>
+        <Stack.Screen name='BarberCard' component={BarberCard} options={{ title: 'Schedule Your Cut' }}/>
+        <Stack.Screen name='ConfirmationScreen' component={ConfirmationScreen} options={{ headerShown: false }} />
       </Stack.Navigator>
     )
   }

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet, Button, DevSettings } from "react-native";
 
 import { connect } from "react-redux";
 import Firebase from "../../config/Firebase";
@@ -8,7 +8,7 @@ import Firebase from "../../config/Firebase";
 class Profile extends React.Component {
   handleSignout = () => {
     Firebase.auth().signOut();
-    this.props.navigation.navigate("Login");
+    DevSettings.reload();
   };
 
 

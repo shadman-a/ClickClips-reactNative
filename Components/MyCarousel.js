@@ -28,11 +28,7 @@ class MyCarousel extends React.Component {
           {
               title:"Item 4",
               text: "Text 4",
-          },
-          {
-              title:"Item 5",
-              text: "Text 5",
-          },
+          }
         ]
       }
     }

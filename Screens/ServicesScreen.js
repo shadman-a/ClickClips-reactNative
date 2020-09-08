@@ -10,7 +10,6 @@ import {
 } from 'react-native'
 import { connect } from "react-redux";
 import Tag from '../Components/Tag'
-import { iOSUIKit } from 'react-native-typography';
 
 
 class ServicesScreen extends React.Component {
@@ -194,7 +193,7 @@ const styles = StyleSheet.create({
   },
   cardheadercontainer: {
     backgroundColor: '#fff',
-    marginBottom: 10,
+    marginBottom: 20,
     padding: 40,
     shadowColor: 'rgba(0,0,0,0.1)',
     shadowOffset: { width: 0, height: 2 },

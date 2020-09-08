@@ -11,9 +11,18 @@ export default function AppointmentScreenNavigator() {
     const Stack = createStackNavigator();
 
     return (
-      <Stack.Navigator initialRouteName='HomeScreen'>
-        <Stack.Screen name='AppointmentScreen' component={AppointmentScreen} />
-        <Stack.Screen name='AppointmentInfo' component={AppointmentInfo} />
+      <Stack.Navigator initialRouteName='HomeScreen'
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: 'tomato',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        }
+      }}>
+        <Stack.Screen name='AppointmentScreen' component={AppointmentScreen} options={{ title: 'Appointments' }} />
+        <Stack.Screen name='AppointmentInfo' component={AppointmentInfo} options={{ title: 'Appointment Info' }}/>
         <Stack.Screen name='ConfirmationScreen' component={ConfirmationScreen} />
       </Stack.Navigator>
     )
