@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Text,
   Button,
+  Image
 } from "react-native";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
@@ -28,6 +29,20 @@ class Login extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <Image
+              style={ {
+                width: 250,
+                borderRadius: 10,
+                height: 180,
+                padding: 20,
+                marginLeft: 10,
+                marginRight: 15,
+                marginTop: 10,
+                marginBottom: 20}}
+              source={{
+                uri: 'https://i.ibb.co/S7bDKPM/Screen-Shot-2020-09-09-at-9-30-54-PM.png',
+              }}
+            />
         <TextInput
           style={styles.inputBox}
           value={this.props.user.email}

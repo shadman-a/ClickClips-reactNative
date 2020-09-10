@@ -1,10 +1,26 @@
 import * as React from "react";
 import { Text, View, Image, ScrollView, Button, Icon } from "react-native";
 import { Header, Card } from "react-native-elements";
-import { Calendar, CalendarList, Agenda } from "react-native-calendars";
+import { iOSUIKit } from "react-native-typography";
+import Tag from '../Components/Tag'
+
 
 
 class AppointmentInfo extends React.Component {
+
+	state={
+		servicesArray :[]
+	}
+
+	componentDidMount() {
+    fetch(`http://localhost:3000/services/${this.props.route.params.otherParam.id}`)
+      .then((response) => response.json())
+      .then((json) => {
+        this.setState({ 
+          servicesArray: json
+        });
+      })
+  }
 
  deleteAppointment = () => {
 		fetch(`http://localhost:3000/appointments/${this.props.route.params.otherParam.id}`, { method: "DELETE" })
@@ -12,13 +28,34 @@ class AppointmentInfo extends React.Component {
   };
 
     render(){
+			console.log(this.props.route.params)
 			return(
-				<>
-					<Text>
-						Date: {this.props.route.params.otherParam.date}</Text>
-						<Text>
-						Time: {this.props.route.params.otherParam.time}
-					</Text>
+				<View style={{ justifyContent: "center" }}>
+				<Image
+					 style={ {
+						width: 400,
+						height: 150,
+					}}
+					source={{
+						uri: this.props.route.params.barberParam.image,
+					}}
+					/>
+				<ScrollView >
+				<Card>
+					<Text style={iOSUIKit.title3}>{this.props.route.params.barberParam.name}</Text>
+					<Text>{this.props.route.params.barberParam.address}</Text>
+					<Text>{this.props.route.params.barberParam.phone}</Text>
+					<View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+					<Tag>
+						Date: {this.props.route.params.otherParam.date}</Tag>
+						<Tag>
+						Time: {this.props.route.params.otherParam.time}</Tag>
+					</View>
+
+					<Text style={iOSUIKit.title3}>Service Ordered:</Text>
+				<Text style={iOSUIKit.subheadEmphasized}>{this.state.servicesArray.name} ${this.state.servicesArray.price}.00</Text>
+					<Text></Text>
+					</Card>
 					<Button      
 					title='Edit this Appointment'
 					onPress={this.deleteAppointment}
@@ -28,9 +65,11 @@ class AppointmentInfo extends React.Component {
 					color = 'red'
 					onPress={this.deleteAppointment}
 					/>
-					</>
-			)
-}
+			
+			</ScrollView>		
+			</View>	
+		)
+	}
 }
 
 export default AppointmentInfo

@@ -60,18 +60,18 @@ class HomeScreen extends React.Component {
     ));
     return (
       <>
-        <View>
           <SearchBar
             platform="ios"
-            placeholder="Find a Barber"
+            placeholder="Find a Professional"
             onChangeText={this.updateSearch}
             value={search}
           />
           <ScrollView>
+            <View>
             <MyCarousel />
             {Barber}
+            </View>
           </ScrollView>
-        </View>
       </>
     );
   }

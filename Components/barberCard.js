@@ -19,7 +19,7 @@ class BarberCard extends React.Component {
   submitButton = () => {
     if (this.state.time !== null) {
       return (
-      <Button title="Book Now" onPress={this.postAppointment}></Button>
+      <Button style={{fontSize: 150}} title="Book Now" onPress={this.postAppointment}></Button>
      );
     }
   };
@@ -47,9 +47,29 @@ class BarberCard extends React.Component {
         barber_id: this.props.route.params.otherParam.id,
         user_id: this.props.user.uid,
       }),
-    }).then(() => this.props.navigation.navigate("ConfirmationScreen"));
+    }).then(resp => resp.json())
+    .then(appt=>this.postCart(appt.id))
   };
 
+
+  postCart = (id) => {
+    
+    fetch("http://localhost:3000/carts", {
+      method: "POST",
+      headers: {
+        accepts: "application/json",
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        service_id: this.props.route.params.servicesParam.id,
+        user_id: this.props.user.uid,
+        appointment_id: id
+      }),
+    })
+    .then(() => this.props.navigation.navigate("ConfirmationScreen"))
+    .then(console.log("hello"))
+  }
+  
   render() {
     return (
       <>

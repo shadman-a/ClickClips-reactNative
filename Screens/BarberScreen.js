@@ -17,26 +17,7 @@ const actions = {
 };
 
 
-// import Geolocation from '@react-native-community/geolocation'
-// import { PERMISSIONS } from 'react-native-permissions';
-// import * as Permissions from 'expo-permissions';
-
 class BarbersScreen extends React.Component {
-  // requestLocationPermission = async () => {
-  //     const { status, permissions } = await Permissions.askAsync(Permissions.LOCATION);
-  //     if (status === 'granted') {
-  //         return Location.getCurrentPositionAsync({ enableHighAccuracy: true });
-  //     } else {
-  //         throw new Error('Location permission not granted');
-  //     }
-  // }
-
-  // locateCurrentPosition = () => {
-  //     Geolocation.getCurrentPosition(
-  //         position => {
-  //         }
-  //     )
-  // }
 
   componentDidMount() {
     this.props.actions.fetchBarbers();
@@ -70,8 +51,8 @@ class BarbersScreen extends React.Component {
         region={{
           latitude: 40.736527,
           longitude: -73.920816,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
+          latitudeDelta: 0.02,
+          longitudeDelta: 0.02,
         }}
       >
        {Barber}

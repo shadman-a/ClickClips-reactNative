@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, Button, DevSettings } from "react-native";
+import { Header } from 'react-native-elements';
 
 import { connect } from "react-redux";
 import Firebase from "../../config/Firebase";
@@ -13,13 +14,19 @@ class Profile extends React.Component {
 
 
   render() {
-    console.log(this.props)
+    
     return (
+      <>
+      <Header
+      backgroundColor="tomato"
+      centerComponent={{ text: 'Settings', style: { color: '#fff', fontWeight: 'bold' } }}
+    />
       <View style={styles.container}>
         <Text>Profile Screen</Text>
         <Text>{this.props.user.email}</Text>
         <Button title="Logout" onPress={this.handleSignout} />
       </View>
+      </>
     );
   }
 }

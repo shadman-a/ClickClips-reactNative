@@ -23,7 +23,7 @@ export default class TabNavigator extends React.Component {
 
               if (route.name === "Home") {
                 iconName = "ios-home";
-              } else if (route.name === "Barbers") {
+              } else if (route.name === "Map") {
                 iconName = "ios-map";
               } else if (route.name === "Appointments") {
                 iconName = "ios-calendar";
@@ -39,7 +39,7 @@ export default class TabNavigator extends React.Component {
           }}
         >
           <Tab.Screen name="Home" component={HomeScreenNavigator} />
-          <Tab.Screen name="Barbers" component={BarberNavigator} />
+          <Tab.Screen name="Map" component={BarberNavigator} />
           <Tab.Screen name="Appointments" component={AppointmentScreenNavigator} />
           <Tab.Screen name="Settings" component={Profile} />
         </Tab.Navigator>

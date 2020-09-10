@@ -35,28 +35,19 @@ class ServicesScreen extends React.Component {
         });
       })
   }
-
-  postCart = (id) => {
-    fetch("http://localhost:3000/carts", {
-      method: "POST",
-      headers: {
-        accepts: "application/json",
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        service_id: id,
-        user_id: this.props.user.uid,
-      }),
-    }).then(() => this.props.navigation.navigate("BarberCard",
-    {otherParam: this.props.route.params.otherParam}));
+  pressHandler=(service)=>{
+    this.props.navigation.navigate("BarberCard",
+      {otherParam: this.props.route.params.otherParam,
+      servicesParam: service});
   };
+  
 
   render() {
     const Service = this.state.servicesArray.map((service) => {
       if(service.barber_id == this.props.route.params.otherParam.id)
      { return(
       <View style={styles.card}>
-      <TouchableOpacity activeOpacity={0.7} onPress={() => this.postCart(service.id)}>
+      <TouchableOpacity activeOpacity={0.7} onPress={()=>this.pressHandler(service)}>
         <View style={styles.cardcontainer}>
           <Text style={styles.cardtitle}>{service.name}</Text>
           <Text style={styles.carddescription}>{service.description}</Text>
@@ -136,7 +127,7 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     width: '90%',
-    height: 150,
+    height: 100,
     backgroundColor: '#fff',
     alignSelf: 'center',
     shadowColor: 'rgba(0,0,0,0.1)',
@@ -156,7 +147,6 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   
-  
   cardcontainer: {
     width: 320,
     backgroundColor: '#fff',
@@ -165,7 +155,7 @@ const styles = StyleSheet.create({
     shadowColor: 'rgba(0,0,0,0.1)',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 1,
-    shadowRadius: 5
+    shadowRadius: 10
   },
   cardimage: {
     height: 150
@@ -194,12 +184,12 @@ const styles = StyleSheet.create({
   cardheadercontainer: {
     backgroundColor: '#fff',
     marginBottom: 20,
-    padding: 40,
+    padding: 15,
     shadowColor: 'rgba(0,0,0,0.1)',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 1,
-    shadowRadius: 5
-  },
+    shadowRadius: 10
+  }
 
 })
   
