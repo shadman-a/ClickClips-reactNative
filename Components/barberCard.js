@@ -1,11 +1,9 @@
 import * as React from "react";
-import { Text, View, Button, Alert, ScrollView } from "react-native";
-import { Calendar, CalendarList, Agenda } from "react-native-calendars";
-import DateTimePicker from "@react-native-community/datetimepicker";
+import { Text, View, Button, ScrollView } from "react-native";
+import { Calendar } from "react-native-calendars";
 import { connect } from "react-redux";
 import { material } from 'react-native-typography';
 import { List } from 'react-native-paper';
-
 
 
 
@@ -19,7 +17,13 @@ class BarberCard extends React.Component {
   submitButton = () => {
     if (this.state.time !== null) {
       return (
+      <>
       <Button style={{fontSize: 150}} title="Book Now" onPress={this.postAppointment}></Button>
+      <View style={{ justifyContent: "center", alignItems: "center" }}>
+      <Text style={material.caption}>{this.state.date}</Text>
+      <Text style={material.caption}>{this.state.time}</Text>
+      </View>
+      </>
      );
     }
   };
@@ -53,7 +57,6 @@ class BarberCard extends React.Component {
 
 
   postCart = (id) => {
-    
     fetch("http://localhost:3000/carts", {
       method: "POST",
       headers: {
@@ -67,43 +70,13 @@ class BarberCard extends React.Component {
       }),
     })
     .then(() => this.props.navigation.navigate("ConfirmationScreen"))
-    .then(console.log("hello"))
   }
-  
-  render() {
-    return (
-      <>
-       <View
-          style={{ justifyContent: "center", alignItems: "center" }}
-        >
-          <Text style={material.headline}>{this.props.route.params.otherParam.name}</Text>
-          <Text style={material.caption}>{this.state.date}</Text>
-          <Text style={material.caption}>{this.state.time}</Text>
-        </View>
-        <ScrollView>
-        <Calendar
-           theme={{
-            selectedDayBackgroundColor: '#00adf5',
-            selectedDayTextColor: '#ffffff',
-            todayTextColor: 'tomato',
-            dayTextColor: '#2d4150',
-            textDisabledColor: '#d9e1e8',
-            dotColor: '#00adf5',
-            selectedDotColor: '#ffffff',
-            arrowColor: 'tomato',
-            disabledArrowColor: '#d9e1e8',
-            indicatorColor: 'tomato',
-          }}
-          minDate={Date()}
-          onDayPress={(day) => {
-            this.setState({
-              date: day.dateString,
-            });
-          }}
-        />
-        
+
+  timeAccordion=()=>{
+    if (this.state.date !== null) {
+      return (
         <>
-        <List.Section title="Available Times">
+        <Text style={material.caption}>Available Times For:</Text><List.Section title={this.state.date}>
       <List.Accordion
         theme={{ colors: { primary: 'tomato' }}}
         title="Morning"
@@ -135,14 +108,50 @@ class BarberCard extends React.Component {
         <List.Item title="7:00 PM" onPress={()=>this.setTime('7:00 PM')}/>
       </List.Accordion>
     </List.Section>
-        </>
+        </>)
+    }
+  }
+  
+  render() {
+    return (
+      <>
+       <View
+          style={{ justifyContent: "center", alignItems: "center" }}
+        >
+          <Text style={material.headline}>{this.props.route.params.otherParam.name}</Text>
+        </View>
+        <ScrollView>
+          <Text style={material.caption}>Pick a Date</Text>
+        <Calendar
+           theme={{
+            selectedDayBackgroundColor: '#00adf5',
+            selectedDayTextColor: '#ffffff',
+            todayTextColor: 'tomato',
+            dayTextColor: '#2d4150',
+            textDisabledColor: '#d9e1e8',
+            dotColor: '#00adf5',
+            selectedDotColor: '#ffffff',
+            arrowColor: 'tomato',
+            disabledArrowColor: '#d9e1e8',
+            indicatorColor: 'tomato',
+          }}
+          minDate={Date()}
+          onDayPress={(day) => {
+            this.setState({
+              date: day.dateString,
+            });
+          }}
+        />
+        
+        {this.timeAccordion()}
         </ScrollView>
         {this.submitButton()}
 
       </>
-    );
+    )
   }
 }
+
 
 const mapStateToProps = (state) => {
   return {

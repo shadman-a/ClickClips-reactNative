@@ -9,18 +9,25 @@ import Tag from '../Components/Tag'
 class AppointmentInfo extends React.Component {
 
 	state={
-		servicesArray :[]
+		servicesArray :[],
+		cartsArray: []
 	}
 
 	componentDidMount() {
-    fetch(`http://localhost:3000/services/${this.props.route.params.otherParam.id}`)
-      .then((response) => response.json())
-      .then((json) => {
-        this.setState({ 
-          servicesArray: json
-        });
-      })
-  }
+		fetch(`http://localhost:3000/carts/${this.props.route.params.otherParam.id}`)
+			.then((response) => response.json())
+			.then(cart=>this.fetchServices(cart.service_id))
+	}
+	
+	fetchServices=(id)=> {
+		fetch(`http://localhost:3000/services/${id}`)
+		.then((response) => response.json())
+		.then((json) => {
+			this.setState({ 
+				servicesArray: json
+			});
+		})
+	}
 
  deleteAppointment = () => {
 		fetch(`http://localhost:3000/appointments/${this.props.route.params.otherParam.id}`, { method: "DELETE" })
@@ -28,7 +35,6 @@ class AppointmentInfo extends React.Component {
   };
 
     render(){
-			console.log(this.props.route.params)
 			return(
 				<View style={{ justifyContent: "center" }}>
 				<Image

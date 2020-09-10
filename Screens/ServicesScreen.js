@@ -77,7 +77,7 @@ class ServicesScreen extends React.Component {
         <Animated.View style={[styles.imageContainer, { height: imageContainerHeight }]}>
           <Image style={styles.image} source={{ uri: this.props.route.params.otherParam.image }} />
         </Animated.View>
-        <ScrollView onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: this.scrollY } } }])}
+        <ScrollView onScroll={Animated.event([{ useNativeDriver: true, nativeEvent: { contentOffset: { y: this.scrollY } } }])}
           scrollEventThrottle={16}
           stickyHeaderIndices={[1]}
           style={styles.scrollViewContainer}

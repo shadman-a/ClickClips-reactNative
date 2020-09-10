@@ -24,7 +24,6 @@ class Signup extends React.Component {
   };
 
   render() {
-    console.log("hello",this.props)
     return (
       <>
       <Header
