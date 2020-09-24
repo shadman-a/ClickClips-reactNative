@@ -28,7 +28,7 @@ class Signup extends React.Component {
       <>
       <Header
       placement="left"
-      leftComponent={{ icon: 'arrow-back', color: '#fff', onPress: () => this.props.navigation.goBack() }}
+      leftComponent={{ icon: 'arrow-back', color: '#fff', onPress: () => this.props.navigation.navigate("Login") }}
       backgroundColor="tomato"
     />
       <View style={styles.container}>
